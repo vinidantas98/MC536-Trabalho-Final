@@ -1,4 +1,4 @@
-# `Número de caso/mortes diários e acumulados de Covid-19 e estatísticas do uso de máscaras faciais na Europa e nos EUA`
+# Número de caso/mortes diários e acumulados de Covid-19 e estatísticas do uso de máscaras faciais na Europa e nos EUA.
 
 # Equipe `Coviders` - `CVDRS`
 * `Vinicius Alves Mancine Dantas` - `188092`
