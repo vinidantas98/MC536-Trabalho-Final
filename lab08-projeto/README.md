@@ -17,7 +17,7 @@
 ### Pergunta/Análise 2
 > * Os locais com maior número de casos são também os lugares com menor índice de uso de máscaras?
 >   
->   * Explicação sucinta da análise que será feita no grafo para atender à pergunta. Deve ser indicado explicitamente em qual das modalidades a análise se encaixa: centralidade; vulnerabilidade; comunidade/modularidade; motifs; predição de links.
+>   * Para podermos identificar se os locais com maior número de casos são também os lugares com menor índice de uso de máscaras podemos utilizar uma análise das comunidade que serão formadas. Identificando as comunidades que apresentam as menores taxas de uso de máscara e comparando-as com uma listagem de locais que apresentam os maiores números de casos podemos responder a pergunta.
 
 ### Pergunta/Análise 3
 > * A proporção mortes/casos é influênciada pela frequência no uso de máscara?
