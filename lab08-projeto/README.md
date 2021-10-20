@@ -12,7 +12,7 @@
 ### Pergunta/Análise 1
 > *  Locais com frequência de uso de máscara próximas possuem taxas de infecções parecidas?
 >   
->   * Explicação sucinta da análise que será feita no grafo para atender à pergunta. Deve ser indicado explicitamente em qual das modalidades a análise se encaixa: centralidade; vulnerabilidade; comunidade/modularidade; motifs; predição de links.
+>   * Dada a estrutura criada para o modelo, comunidades de locais com taxas de uso de máscara próximas devem surgir, possibilitando a verificação da proximidade das taxas de infecção dentro destas comunidades.
 
 ### Pergunta/Análise 2
 > * Os locais com maior número de casos são também os lugares com menor índice de uso de máscaras?
