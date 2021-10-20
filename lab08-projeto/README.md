@@ -1,35 +1,25 @@
-# Aluno
-* 188092: Vinicius Alves Mancine Dantas
+# Modelo para Apresentação do Lab08 - Modelo Lógico e Análise de Dados em Grafos
 
-# Laboratórios
-* [Laboratório 1](lab01/)
-* [Laboratório 2](lab02/)
-* [Laboratório 3](lab03/)
-* [Laboratório 4](lab04/)
-* [Laboratório 5](lab05/)
-* [Laboratório 6](lab06/)
-* [Laboratório 7](lab07/)
+# Equipe `Coviders` - `CVDRS`
+* `Fernando dos Reis Santos Filho` - `234471`
+* `Renan Hiroki Bastos` - `176573`
+* `Vinicius Alves Mancine Dantas` - `188092`
 
-Abaixo são dadas orientações gerais para todos os laboratórios.
+## Modelo Lógico Combinado do Banco de Dados de Grafos
+> ![Modelo Lógico de Grafos](images/modelo-logico-grafos.jpeg)
 
-# Estrutura de Arquivos e Pastas
+## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
+### Pergunta/Análise 1
+> *  Locais com frequência de uso de máscara próximas possuem taxas de infecções parecidas?
+>   
+>   * Explicação sucinta da análise que será feita no grafo para atender à pergunta. Deve ser indicado explicitamente em qual das modalidades a análise se encaixa: centralidade; vulnerabilidade; comunidade/modularidade; motifs; predição de links.
 
-A seguir é apresentada a estrutura de pastas dos laboratórios:
+### Pergunta/Análise 2
+> * Os locais com maior número de casos são também os lugares com menor índice de uso de máscaras?
+>   
+>   * Explicação sucinta da análise que será feita no grafo para atender à pergunta. Deve ser indicado explicitamente em qual das modalidades a análise se encaixa: centralidade; vulnerabilidade; comunidade/modularidade; motifs; predição de links.
 
-~~~
-├── README.md  <- apresentação do aluno
-│
-├── lab01      <- primeiro lab
-│
-├── lab02      <- segundo lab
-│
-├── lab03      <- terceiro lab
-│
-├── lab04      <- quarto lab
-│
-├── lab05      <- quinto lab
-│
-├── lab06      <- sexto lab
-│
-└── lab07      <- sétimo lab
-~~~
+### Pergunta/Análise 3
+> * A proporção mortes/casos é influênciada pela frequência no uso de máscara?
+>   
+>   * Explicação sucinta da análise que será feita no grafo para atender à pergunta. Deve ser indicado explicitamente em qual das modalidades a análise se encaixa: centralidade; vulnerabilidade; comunidade/modularidade; motifs; predição de links.
