@@ -22,4 +22,4 @@
 ### Pergunta/Análise 3
 > * A proporção mortes/casos é influênciada pela frequência no uso de máscara?
 >   
->   * Explicação sucinta da análise que será feita no grafo para atender à pergunta. Deve ser indicado explicitamente em qual das modalidades a análise se encaixa: centralidade; vulnerabilidade; comunidade/modularidade; motifs; predição de links.
+>   * Para verificar a influência do uso de máscaras na relação M/C (número de mortes / número de casos confirmados) será necessário calcular essa proporção para cada comunidade de locais. Para isso será necessário encontrar uma comunidade com taxa de uso de máscara semelhante, percorrer os seus nós locais e calcular a proporção M/C para cada nó e, por fim, calcular a média dessas proporções a fim de encontrar a relação M/C que representa aquela comunidade. Assim, tendo a relação M/C média para cada comunidade é possível realizar a comparação dessas relações com a taxa de uso de máscara.
