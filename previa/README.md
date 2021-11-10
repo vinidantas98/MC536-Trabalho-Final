@@ -55,6 +55,8 @@ Mask adherence and rate of COVID-19 across the United States | https://journals.
 
 Tendo as fontes dos dados necessários, foram utilizadas técnicas de extração, integração de dados de múltiplas fontes e o tratamento dos dados para implementação e padronização do banco de acordo com os modelos já discutidos.  Para os dados extraídos da “Our World in Data” foi necessária a remoção dos países não incluídos nas pesquisas sobre máscaras, remoção das colunas irrelevantes para nossa análise e compilação dos casos diários de contaminação por COVID-19 em dados mensais. Já para os dados da YouGov, foi realizado uma média por mês de todas as coletas sobre a porcentagem do uso de máscara naquele país, além da remoção das células onde o somatório foi 0, ou seja, não houve nenhuma coleta de dados sobre o uso de máscaras naquele mês.
 
+A sequência de operações realizadas sobre o conjunto de dados para a contrução do dataset pode ser encontrada [neste notebook.](notebooks/Notebook_Trabalho_Final.ipynb)
+
 
 ## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
 
