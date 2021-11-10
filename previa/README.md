@@ -18,8 +18,7 @@ Logo, nosso objetivo com esse trabalho é extrair, tratar e compilar dados  de f
 
 ## Modelo Conceitual Preliminar
 
-> Coloque aqui a imagem do modelo conceitual preliminar em ER ou UML, como o exemplo a seguir:
-> ![ER Taxi](images/er-taxi.png)
+> ![Modelo conceitual](assets/modelo-conceitual.jpeg)
 
 ## Modelos Lógicos Preliminares
 
