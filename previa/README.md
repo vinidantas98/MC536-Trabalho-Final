@@ -18,7 +18,7 @@ Logo, nosso objetivo com esse trabalho é extrair, tratar e compilar dados  de f
 
 ## Modelo Conceitual Preliminar
 
-> ![Modelo conceitual](assets/modelo-conceitual.jpeg)
+> ![Modelo conceitual](assets/modelo-conceitual.jpg)
 
 ## Modelos Lógicos Preliminares
 
