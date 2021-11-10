@@ -22,8 +22,9 @@ Logo, nosso objetivo com esse trabalho é extrair, tratar e compilar dados  de f
 
 ## Modelos Lógicos Preliminares
 
-> Coloque aqui os primeiros modelos lógicos dos bancos de dados relacionados aos modelos conceituais. Para o modelo relacional, sugere-se o formato a seguir. Para outros modelos lógicos o formato é livre, pode ser adotado aqueles apresentados em sala.
+Após a modelagem de nosso modelo conceitual, foram escolhidos dois modelos lógicos para a implementação do banco. Estes têm o objetivo de estruturar os dados de forma lógica, mantendo as relações estabelecidas no modelo conceitual, a fim de armazená-los em um banco de dados. Os modelos escolhidos foram o modelo relacional e o modelo hierárquico.
 
+O modelo relacional, além de ser o modelo mais comum e acessível, foi escolhido por sua representação dos dados em forma de tabelas, que proporciona uma visualização múltipla dos dados e facilita o tratamento e consultas em grandes quantidades de dados.
 > Exemplo de modelo lógico relacional
 ~~~
 PESSOA(_Código_, Nome, Telefone)
@@ -31,26 +32,8 @@ ARMÁRIO(_Código_, Tamanho, Ocupante)
   Ocupante chave estrangeira -> PESSOA(Código)
 ~~~
 
-> Para o modelo de grafos de propriedades, utilize este
-> [modelo de base](https://docs.google.com/presentation/d/10RN7bDKUka_Ro2_41WyEE76Wxm4AioiJOrsh6BRY3Kk/edit?usp=sharing) para construir o seu.
-> Coloque a imagem do PNG do seu modelo lógico como ilustrado abaixo (a imagem estará na pasta `image`):
->
-> ![Modelo Lógico de Grafos](images/modelo-logico-grafos.png)
-
-> Para o modelo de grafos de conhecimento, utilize a abordagem
-> (recurso, propriedade, valor) para apresentar seu grafo exemplo.
-> Coloque a imagem do PNG do seu modelo lógico como ilustrado abaixo (a imagem estará na pasta `image).
->
-> Você pode usar um grafo ilustrando as classes, como este:
-> ![Modelo Lógico de Grafos de Conhecimento](images/grafo-conhecimento-classes.png)
->
-> Além de outro com exemplo de instâncias, como este:
-> ![Modelo Lógico de Grafos](images/grafo-conhecimento-exemplo.png)
-
-> Para modelos hierárquicos (XML e JSON), utilize um formato
-> conforme o abaixo:
-
-> ![Modelo Lógico Hierárquico](images/modelo-logico-hierarquico.png)
+Já o modelo hierárquico foi escolhido por se encaixar na forma em que nossos dados estão estruturados e pela facilidade de se trabalhar, exportar e importar dados estruturados neste modelo.
+> ![Modelo Lógico Hierárquico](assets/modelo-logico-hierarquico.png)
 
 ## Dataset Preliminar a ser Publicado
 > Elencar os arquivos/bases preliminares dos datasets serão publicados publicados.
