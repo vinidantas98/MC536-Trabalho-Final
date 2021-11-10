@@ -14,7 +14,7 @@ Logo, nosso objetivo com esse trabalho é extrair, tratar e compilar dados  de f
 
 
 ## Slides da Apresentação
-> Coloque aqui o link para o PDF da apresentação prévia
+[slides apresentação](slides/slide_final.pdf)
 
 ## Modelo Conceitual Preliminar
 
@@ -25,11 +25,8 @@ Logo, nosso objetivo com esse trabalho é extrair, tratar e compilar dados  de f
 Após a modelagem de nosso modelo conceitual, foram escolhidos dois modelos lógicos para a implementação do banco. Estes têm o objetivo de estruturar os dados de forma lógica, mantendo as relações estabelecidas no modelo conceitual, a fim de armazená-los em um banco de dados. Os modelos escolhidos foram o modelo relacional e o modelo hierárquico.
 
 O modelo relacional, além de ser o modelo mais comum e acessível, foi escolhido por sua representação dos dados em forma de tabelas, que proporciona uma visualização múltipla dos dados e facilita o tratamento e consultas em grandes quantidades de dados.
-> Exemplo de modelo lógico relacional
 ~~~
-PESSOA(_Código_, Nome, Telefone)
-ARMÁRIO(_Código_, Tamanho, Ocupante)
-  Ocupante chave estrangeira -> PESSOA(Código)
+CASO(_id_, locations, date, new_cases, total_cases, new_deaths, total_deaths, mask_use_percentage)
 ~~~
 
 Já o modelo hierárquico foi escolhido por se encaixar na forma em que nossos dados estão estruturados e pela facilidade de se trabalhar, exportar e importar dados estruturados neste modelo.
@@ -46,7 +43,6 @@ título do arquivo/base | link | breve descrição
 > Coloque arquivos que não estejam disponíveis online e sejam acessados pelo notebook. Relacionais (usualmente CSV), XML, JSON e CSV ou triplas para grafos.
 
 ## Bases de Dados
-> Elencar as bases de dados fonte utilizadas no projeto.
 
 título da base | link | breve descrição
 ----- | ----- | -----
@@ -58,13 +54,8 @@ Mask adherence and rate of COVID-19 across the United States | https://journals.
 ## Operações realizadas para a construção do dataset
 
 > Coloque um link para o arquivo do notebook, programas ou workflows que executam as operações de construção do dataset:
-* extração de dados de fontes não estruturadas como, por exemplo, páginas Web
-* agregação de dados fragmentados obtidos a partir de API
-* integração de dados de múltiplas fontes
-* tratamento de dados
-* transformação de dados para facilitar análise e pesquisa
+Tendo as fontes dos dados necessários, foram utilizadas técnicas de extração, integração de dados de múltiplas fontes e o tratamento dos dados para implementação e padronização do banco de acordo com os modelos já discutidos.  Para os dados extraídos da “Our World in Data” foi necessária a remoção dos países não incluídos nas pesquisas sobre máscaras, remoção das colunas irrelevantes para nossa análise e compilação dos casos diários de contaminação por COVID-19 em dados mensais. Já para os dados da YouGov, foi realizado uma média por mês de todas as coletas sobre a porcentagem do uso de máscara naquele país, além da remoção das células onde o somatório foi 0, ou seja, não houve nenhuma coleta de dados sobre o uso de máscaras naquele mês.
 
-> Se for notebook, ele estará dentro da pasta `notebook`. Se por alguma razão o código não for executável no Jupyter, coloque na pasta `src`. Se as operações envolverem queries executadas atraves de uma interface de um SGBD não executável no Jupyter, como o Cypher, apresente na forma de markdown.
 
 ## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
 
@@ -74,19 +65,31 @@ Mask adherence and rate of COVID-19 across the United States | https://journals.
 > demonstrar o potencial da base.
 >
 ### Pergunta/Análise 1
-> * Pergunta 1
+> * Qual é a relação entre a frequência do uso de máscaras e a quantidade de casos por região?
 >   
 >   * Explicação sucinta da análise que será feita ou conjunto de queries que
 >     responde à pergunta.
 
 ### Pergunta/Análise 2
-> * Pergunta 2
+> * Há relação entre a frequência de uso de máscaras e a taxa de mortalidade?
 >   
 >   * Explicação sucinta da análise que será feita ou conjunto de queries que
 >     responde à pergunta.
 
 ### Pergunta/Análise 3
-> * Pergunta 3
+> * A taxa de infecção local influencia na quantidade de pessoas que usam máscaras?
+>   
+>   * Explicação sucinta da análise que será feita ou conjunto de queries que
+>     responde à pergunta.
+
+### Pergunta/Análise 4
+> * Onde houve o maior e o menor índice de uso de máscaras?
+>   
+>   * Explicação sucinta da análise que será feita ou conjunto de queries que
+>     responde à pergunta.
+
+### Pergunta/Análise 5
+> * Há diferenças na relação entre a frequência do uso de máscaras e a taxa de transmissão da Covid-19 entre EUA e Europa?
 >   
 >   * Explicação sucinta da análise que será feita ou conjunto de queries que
 >     responde à pergunta.
