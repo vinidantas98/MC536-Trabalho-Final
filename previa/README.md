@@ -14,11 +14,11 @@ Logo, nosso objetivo com esse trabalho é extrair, tratar e compilar dados  de f
 
 
 ## Slides da Apresentação
-[slides apresentação](slides/MC536-Trabalho Final.pdf)
+[slides apresentação](slides/slide_final.pdf)
 
 ## Modelo Conceitual Preliminar
 
-> ![Modelo conceitual](assets/modelo-conceitual.jpeg)
+> ![Modelo conceitual](assets/modelo-conceitual.png)
 
 ## Modelos Lógicos Preliminares
 
