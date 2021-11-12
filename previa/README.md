@@ -33,14 +33,19 @@ Já o modelo hierárquico foi escolhido por se encaixar na forma em que nossos d
 > ![Modelo Lógico Hierárquico](assets/modelo-logico-hierarquico.png)
 
 ## Dataset Preliminar a ser Publicado
-> Elencar os arquivos/bases preliminares dos datasets serão publicados publicados.
 
 título do arquivo/base | link | breve descrição
 ----- | ----- | -----
-`<título do arquivo/base>` | `<link para arquivo/base>` | `<breve descrição do arquivo/base>`
-
-> Os arquivos finais do dataset publicado devem ser colocados na pasta `data`, em subpasta `processed`. Outros arquivos serão colocados em subpastas conforme seu papel (externo, interim, raw). A diferença entre externo e raw é que o raw é em formato não adaptado para uso. A pasta `raw` é opcional, pois pode ser substituída pelo link para a base original da seção anterior.
-> Coloque arquivos que não estejam disponíveis online e sejam acessados pelo notebook. Relacionais (usualmente CSV), XML, JSON e CSV ou triplas para grafos.
+dados_nyt_tratados.csv  | ![interim](data/interim/dados_nyt_tratados.csv) | Dados sobre uso de máscara, quantidades de casos e quantidade de mortes por Covid-19 nos Estados Unidos, dividido por estados e cidades.
+dados_owid_tratados.csv | ![interim](data/interim/dados_owid_tratados.csv) | Dados sobre quantidade de casos e quantidade de mortes por Covid-19 em 196 países, além de informações sobre vacinação, testes e hospitais em cerca de 200 países.
+dados_plosone_tratados.csv | ![interim](data/interim/dados_plosone_tratados.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
+eua_final.csv | ![interim](data/interim/eua_final.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
+europa_final.csv | ![interim](data/interim/europa_final.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados da Europa.
+yougov-tratada - Página1.csv | ![processed](https://github.com/vinidantas98/MC536-Trabalho-Final/blob/main/previa/data/processed/yougov-tratada%20-%20P%C3%A1gina1.csv) | Dados sobre a porcentagem de uso de máscaras em lugares públicos em 23 países em diferentes regiões do mundo.
+nyt.csv | ![raw](data/raw/nyt.csv) | Dados sobre uso de máscara, quantidades de casos e quantidade de mortes por Covid-19 nos Estados Unidos, dividido por estados e cidades.
+owid-covid-data.csv | ![raw](data/raw/owid-covid-data.csv) | Dados sobre quantidade de casos e quantidade de mortes por Covid-19 em 196 países, além de informações sobre vacinação, testes e hospitais em cerca de 200 países.
+plosone.csv | ![raw](data/raw/plosone.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
+yougov-chart.csv | [raw](data/raw/yougov-chart.csv) | Dados sobre a porcentagem de uso de máscaras em lugares públicos em 23 países em diferentes regiões do mundo.
 
 ## Bases de Dados
 
@@ -60,9 +65,7 @@ A sequência de operações realizadas sobre o conjunto de dados para a contruç
 
 ## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
 
-> Liste aqui as perguntas de pesquisa/análise e respectivas análises.
-> Nem todas as perguntas precisam de queries que as implementam.
-> É possível haver perguntas em que a solução é apenas descrita para
+>  Aqui seguem algumas perguntas de pesquisa/análise descritas para
 > demonstrar o potencial da base.
 >
 ### Pergunta/Análise 1
