@@ -106,7 +106,7 @@ LIMIT 20;
  
 
 ### Pergunta/Análise 3
- * Há alguma envidência de que a frequência de uso de máscara influência na taxa de mortalidade?
+ * Há algum indício de que a frequência de uso de máscara influência na taxa de mortalidade?
   ~~~
 SELECT  location,
         date,
