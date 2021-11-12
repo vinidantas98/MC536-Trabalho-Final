@@ -66,33 +66,126 @@ A sequência de operações realizadas sobre o conjunto de dados para a contruç
 > demonstrar o potencial da base.
 >
 ### Pergunta/Análise 1
-> * Qual é a relação entre a frequência do uso de máscaras e a quantidade de casos por região?
->   
->   * Explicação sucinta da análise que será feita ou conjunto de queries que
->     responde à pergunta.
+ * Os locais com maior número de casos são também os lugares com menor índice de uso de máscaras?
+ ~~~
+SELECT sum(new_cases),
+       avg(new_cases)
+FROM Tabela_final,
+WHERE mask_use_percentage < 25;
+
+SELECT sum(new_cases),
+       avg(new_cases)
+FROM Tabela_final,
+WHERE mask_use_percentage >= 25 AND mask_use_percentage < 50;
+
+SELECT sum(new_cases),
+       avg(new_cases)
+FROM Tabela_final,
+WHERE mask_use_percentage >= 50 AND mask_use_percentage < 75; 
+
+SELECT sum(new_cases),
+       avg(new_cases)
+FROM Tabela_final,
+WHERE mask_use_percentage >= 75;
+ ~~~
+
 
 ### Pergunta/Análise 2
-> * Há relação entre a frequência de uso de máscaras e a taxa de mortalidade?
->   
->   * Explicação sucinta da análise que será feita ou conjunto de queries que
->     responde à pergunta.
+ * Quais são os locais com maior número de casos por indice de uso de máscaras?
+  ~~~
+SELECT location,
+	   date,
+	   mask_use_percentage,
+	   new_cases,
+	   new_cases/mask_use_percentage as case_mask_rate
+FROM tabela_final
+WHERE mask_use_percentage > 0 AND new_cases > 0
+ORDER BY case_mask_rate DESC
+LIMIT 20;
+ ~~~
+ 
 
 ### Pergunta/Análise 3
-> * A taxa de infecção local influencia na quantidade de pessoas que usam máscaras?
->   
->   * Explicação sucinta da análise que será feita ou conjunto de queries que
->     responde à pergunta.
-
+ * Há alguma evidência de influência do frequência de uso de máscara na taxa de mortalidade?
+  ~~~
+SELECT  location,
+        date,
+        mask_use_percentage,
+        new_deaths/new_cases as monthly_death_rate,
+        total_deaths/total_cases as overall_death_rate
+FROM tabela_final
+ORDER BY mask_use_percentage, monthly_death_rate;
+ ~~~
+ 
 ### Pergunta/Análise 4
-> * Onde houve o maior e o menor índice de uso de máscaras?
->   
->   * Explicação sucinta da análise que será feita ou conjunto de queries que
->     responde à pergunta.
+ * Locais com frequência de uso de máscara iguais possuem taxas de infecções parecidas?
+  ~~~
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage < 10;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 10 AND mask_user_percentage < 20;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 20 AND mask_user_percentage < 30;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 30 AND mask_user_percentage < 40;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 40 AND mask_user_percentage < 50;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 50 AND mask_user_percentage < 60;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 60 AND mask_user_percentage < 70;
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 70 AND mask_user_percentage < 80;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 80 AND mask_user_percentage < 90;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 90;
+ ~~~
 
 ### Pergunta/Análise 5
-> * Há diferenças na relação entre a frequência do uso de máscaras e a taxa de transmissão da Covid-19 entre EUA e Europa?
->   
->   * Explicação sucinta da análise que será feita ou conjunto de queries que
->     responde à pergunta.
+ * A proporção mortes/casos é influênciada pela frequência no uso de máscara?
+  ~~~
+SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
+FROM Tabela_final
+WHERE mask_use_percentage < 25;
 
-> Coloque um link para o arquivo do notebook que executa o conjunto de queries. Ele estará dentro da pasta `notebook`. Se por alguma razão o código não for executável no Jupyter, coloque na pasta `src`. Se as queries forem executadas atraves de uma interface de um SGBD não executável no Jupyter, como o Cypher, apresente na forma de markdown.
+SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
+FROM Tabela_final
+WHERE mask_use_percentage >= 25 AND mask_use_percentage < 50;
+
+SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
+FROM Tabela_final
+WHERE mask_use_percentage >= 50 AND mask_use_percentage < 75; 
+
+SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
+FROM Tabela_final
+WHERE mask_use_percentage >= 75;
+ ~~~
