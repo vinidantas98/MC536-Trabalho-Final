@@ -14,7 +14,7 @@ Logo, nosso objetivo com esse trabalho é extrair, tratar e compilar dados  de f
 
 
 ## Slides da Apresentação
-[slides apresentação](slides/slide_final.pdf)
+[slides apresentação](slides/MC536-Trabalho Final.pdf)
 
 ## Modelo Conceitual Preliminar
 
