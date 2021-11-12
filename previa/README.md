@@ -91,7 +91,7 @@ WHERE mask_use_percentage >= 75;
 
 
 ### Pergunta/Análise 2
- * Quais são os locais com maior número de casos por indice de uso de máscaras?
+ * Quais são os locais com maior número de casos por índice de uso de máscaras?
   ~~~
 SELECT location,
 	   date,
@@ -106,7 +106,7 @@ LIMIT 20;
  
 
 ### Pergunta/Análise 3
- * Há alguma evidência de influência do frequência de uso de máscara na taxa de mortalidade?
+ * Há alguma envidência de que a frequência de uso de máscara influência na taxa de mortalidade?
   ~~~
 SELECT  location,
         date,
@@ -118,7 +118,7 @@ ORDER BY mask_use_percentage, monthly_death_rate;
  ~~~
  
 ### Pergunta/Análise 4
- * Locais com frequência de uso de máscara iguais possuem taxas de infecções parecidas?
+ * Locais na mesma faixa de porcentagem de uso de máscara possuem taxas de infecções parecidas?
   ~~~
 SELECT location,
        new_cases
