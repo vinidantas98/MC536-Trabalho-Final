@@ -65,9 +65,6 @@ A sequência de operações realizadas sobre o conjunto de dados para a contruç
 
 ## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
 
->  Aqui seguem algumas perguntas de pesquisa/análise descritas para
-> demonstrar o potencial da base.
->
 ### Pergunta/Análise 1
  * Os locais com maior número de casos são também os lugares com menor índice de uso de máscaras?
  ~~~
