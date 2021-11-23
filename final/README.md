@@ -30,16 +30,19 @@ POPULACAO(location,  population)
 
 título do arquivo/base | link | breve descrição
 ----- | ----- | -----
-dados_nyt_tratados.csv  | ![interim](data/interim/dados_nyt_tratados.csv) | Dados sobre uso de máscara, quantidades de casos e quantidade de mortes por Covid-19 nos Estados Unidos, dividido por estados e cidades.
-dados_owid_tratados.csv | ![interim](data/interim/dados_owid_tratados.csv) | Dados sobre quantidade de casos e quantidade de mortes por Covid-19 em 196 países, além de informações sobre vacinação, testes e hospitais em cerca de 200 países.
-dados_plosone_tratados.csv | ![interim](data/interim/dados_plosone_tratados.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
-eua_final.csv | ![interim](data/interim/eua_final.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
-europa_final.csv | ![interim](data/interim/europa_final.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados da Europa.
-yougov-tratada.csv | ![external](data/external/yougov-tratada.csv) | Dados sobre a porcentagem de uso de máscaras em lugares públicos em 23 países em diferentes regiões do mundo.
-nyt.csv | ![raw](data/raw/nyt.csv) | Dados sobre uso de máscara, quantidades de casos e quantidade de mortes por Covid-19 nos Estados Unidos, dividido por estados e cidades.
-owid-covid-data.csv | ![raw](data/raw/owid-covid-data.csv) | Dados sobre quantidade de casos e quantidade de mortes por Covid-19 em 196 países, além de informações sobre vacinação, testes e hospitais em cerca de 200 países.
-plosone.csv | ![raw](data/raw/plosone.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
+dados_nyt_tratados.csv  | [interim](data/interim/dados_nyt_tratados.csv) | Dados sobre uso de máscara, quantidades de casos e quantidade de mortes por Covid-19 nos Estados Unidos, dividido por estados e cidades.
+dados_owid_tratados.csv | [interim](data/interim/dados_owid_tratados.csv) | Dados sobre quantidade de casos e quantidade de mortes por Covid-19 em 196 países, além de informações sobre vacinação, testes e hospitais em cerca de 200 países.
+dados_plosone_tratados.csv | [interim](data/interim/dados_plosone_tratados.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
+eua_final.csv | [interim](data/interim/eua_final.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
+europa_final.csv | [interim](data/interim/europa_final.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados da Europa.
+yougov-tratada.csv | [external](data/external/yougov-tratada.csv) | Dados sobre a porcentagem de uso de máscaras em lugares públicos em 23 países em diferentes regiões do mundo.
+nyt.csv | [raw](data/raw/nyt.csv) | Dados sobre uso de máscara, quantidades de casos e quantidade de mortes por Covid-19 nos Estados Unidos, dividido por estados e cidades.
+owid-covid-data.csv | [raw](data/raw/owid-covid-data.csv) | Dados sobre quantidade de casos e quantidade de mortes por Covid-19 em 196 países, além de informações sobre vacinação, testes e hospitais em cerca de 200 países.
+plosone.csv | [raw](data/raw/plosone.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
 yougov-chart.csv | [raw](data/raw/yougov-chart.csv) | Dados sobre a porcentagem de uso de máscaras em lugares públicos em 23 países em diferentes regiões do mundo.
+casos.csv | [processed](data/processed/casos.csv) | Dataset finalizado.
+populacoes.csv | [processed](data/raw/casos.csv) | Dados sobre a quantidade populacional para cada localização.
+
 ## Bases de Dados
 
 título da base | link | breve descrição
@@ -85,22 +88,22 @@ plt.show();
  ~~~
 SELECT sum(new_cases),
        avg(new_cases)
-FROM Tabela_final,
+FROM casos,
 WHERE mask_use_percentage < 25;
 
 SELECT sum(new_cases),
        avg(new_cases)
-FROM Tabela_final,
+FROM casos,
 WHERE mask_use_percentage >= 25 AND mask_use_percentage < 50;
 
 SELECT sum(new_cases),
        avg(new_cases)
-FROM Tabela_final,
+FROM casos,
 WHERE mask_use_percentage >= 50 AND mask_use_percentage < 75; 
 
 SELECT sum(new_cases),
        avg(new_cases)
-FROM Tabela_final,
+FROM casos,
 WHERE mask_use_percentage >= 75;
  ~~~
 
@@ -113,7 +116,7 @@ SELECT location,
 	   mask_use_percentage,
 	   new_cases,
 	   new_cases/mask_use_percentage as case_mask_rate
-FROM tabela_final
+FROM casos
 WHERE mask_use_percentage > 0 AND new_cases > 0
 ORDER BY case_mask_rate DESC
 LIMIT 20;
@@ -128,7 +131,7 @@ SELECT  location,
         mask_use_percentage,
         new_deaths/new_cases as monthly_death_rate,
         total_deaths/total_cases as overall_death_rate
-FROM tabela_final
+FROM casos
 ORDER BY mask_use_percentage, monthly_death_rate;
  ~~~
  
@@ -137,51 +140,51 @@ ORDER BY mask_use_percentage, monthly_death_rate;
   ~~~
 SELECT location,
        new_cases
-FROM Tabela_final,
+FROM casos,
 WHERE mask_use_percentage < 10;
 
 SELECT location,
        new_cases
-FROM Tabela_final,
+FROM casos,
 WHERE mask_use_percentage >= 10 AND mask_user_percentage < 20;
 
 SELECT location,
        new_cases
-FROM Tabela_final,
+FROM casos,
 WHERE mask_use_percentage >= 20 AND mask_user_percentage < 30;
 
 SELECT location,
        new_cases
-FROM Tabela_final,
+FROM casos,
 WHERE mask_use_percentage >= 30 AND mask_user_percentage < 40;
 
 SELECT location,
        new_cases
-FROM Tabela_final,
+FROM casos,
 WHERE mask_use_percentage >= 40 AND mask_user_percentage < 50;
 
 SELECT location,
        new_cases
-FROM Tabela_final,
+FROM casos,
 WHERE mask_use_percentage >= 50 AND mask_user_percentage < 60;
 
 SELECT location,
        new_cases
-FROM Tabela_final,
+FROM casos,
 WHERE mask_use_percentage >= 60 AND mask_user_percentage < 70;
 SELECT location,
        new_cases
-FROM Tabela_final,
+FROM casos,
 WHERE mask_use_percentage >= 70 AND mask_user_percentage < 80;
 
 SELECT location,
        new_cases
-FROM Tabela_final,
+FROM casos,
 WHERE mask_use_percentage >= 80 AND mask_user_percentage < 90;
 
 SELECT location,
        new_cases
-FROM Tabela_final,
+FROM casos,
 WHERE mask_use_percentage >= 90;
  ~~~
 
@@ -189,18 +192,18 @@ WHERE mask_use_percentage >= 90;
  * A proporção mortes/casos é influênciada pela frequência no uso de máscara?
   ~~~
 SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
-FROM Tabela_final
+FROM casos
 WHERE mask_use_percentage < 25;
 
 SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
-FROM Tabela_final
+FROM casos
 WHERE mask_use_percentage >= 25 AND mask_use_percentage < 50;
 
 SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
-FROM Tabela_final
+FROM casos
 WHERE mask_use_percentage >= 50 AND mask_use_percentage < 75; 
 
 SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
-FROM Tabela_final
+FROM casos
 WHERE mask_use_percentage >= 75;
  ~~~
