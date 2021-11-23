@@ -65,9 +65,9 @@ Qualquer mídia usada no seu projeto: vídeo, imagens, animações, slides etc. 
 > Coloque aqui os modelos lógicos dos bancos de dados relacionados aos modelos conceituais. Para o modelo relacional, sugere-se o formato a seguir. Para outros modelos lógicos, sugere-se aqueles apresentados em sala.
 > Exemplo de modelo lógico relacional
 ~~~
-PESSOA(_Código_, Nome, Telefone)
-ARMÁRIO(_Código_, Tamanho, Ocupante)
-  Ocupante chave estrangeira -> PESSOA(Código)
+CASO(_id_, locations, date, new_cases, total_cases, new_deaths, total_deaths, mask_use_percentage, new_cases_per_million_habitants, new_deaths_per_million_habitants, total_cases_per_million_habitants, total_deaths_per_million_habitants, , population)
+POPULACAO(location,  population)
+  location chave estrangeira -> CASO(id)
 ~~~
 > Para o modelo de grafos de propriedades, utilize este
 > [modelo de base](https://docs.google.com/presentation/d/10RN7bDKUka_Ro2_41WyEE76Wxm4AioiJOrsh6BRY3Kk/edit?usp=sharing) para construir o seu.
