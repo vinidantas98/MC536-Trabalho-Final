@@ -54,25 +54,114 @@ Personal measures taken to avoid COVID-19 | https://today.yougov.com/topics/inte
 Mask adherence and rate of COVID-19 across the United States | https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0249891#sec011 | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
 
 ## Detalhamento do Projeto
-> Apresente aqui detalhes do processo de construção do dataset e análise. Nesta seção ou na seção de Perguntas podem aparecer destaques de código como indicado a seguir. Note que foi usada uma técnica de highlight de código, que envolve colocar o nome da linguagem na abertura de um trecho com `~~~`, tal como `~~~python`.
-> Os destaques de código devem ser trechos pequenos de poucas linhas, que estejam diretamente ligados a alguma explicação. Não utilize trechos extensos de código. Se algum código funcionar online (tal como um Jupyter Notebook), aqui pode haver links. No caso do Jupyter, preferencialmente para o Binder abrindo diretamente o notebook em questão.
-~~~python
-df = pd.read_excel("/content/drive/My Drive/Colab Notebooks/dataset.xlsx");
-sns.set(color_codes=True);
-sns.distplot(df.Hemoglobin);
-plt.show();
+
+Tendo as fontes necessárias, foram utilizadas técnicas de extração, integração de dados de múltiplas fontes e o tratamento dos dados para implementação e padronização do banco de dados de acordo com os modelos já discutidos. O processo de construção do dataset envolveu três etapas: extrair e importar os dados das fontes, tratar cada um dos dos dados importados de acordo com as necessidades dos modelos do dataset e unir os dados tratadas das múltiplas fontes e um único database. Todo esse processo foi descrito neste Notebook: [src](src/Notebook_Trabalho_Final.ipynb), embora seja não executável. 
+
+Para os dados da YouGov, foi realizado uma média por mês de todas as coletas sobre a porcentagem do uso de máscara naquele país, além da remoção das células onde o somatório foi 0, ou seja, não houve nenhuma coleta de dados sobre o uso de máscaras naquele mês. Já os dados extraídos da “Our World in Data” foi necessária a remoção dos países não incluídos nas pesquisas sobre máscaras, remoção das colunas irrelevantes para nossa análise e compilação dos casos diários de contaminação por COVID-19 em dados mensais. 
+
+~~~
+# TRATAR DADOS DA OUR WORLD IN DATA (EUROPA)
+
+CREATE VIEW view_europa AS
+SELECT id,
+	   location,
+	   date,
+	   total_cases,	
+	   LAG(total_cases) OVER (
+		   ORDER BY id) old_total_cases,
+	   total_deaths,
+	   LAG(total_deaths) OVER (
+		   ORDER BY id) old_total_deaths
+FROM dados_owid
+WHERE (location='Denmark' OR location='Finland' OR location='France' OR location='Germany' OR location='Italy' OR location='Norway' OR location='Spain' OR location='Sweden' OR location='United Kingdom')
+		AND (date='2020-02-01' OR date='2020-03-01' OR date='2020-04-01' OR date='2020-05-01' OR date='2020-06-01' OR date='2020-07-01' OR date='2020-08-01' OR date='2020-09-01' OR date='2020-10-01' OR date='2020-11-01' OR date='2020-12-01' OR date='2021-01-01' OR date='2021-02-01' OR date='2021-03-01' OR date='2021-04-01' OR date='2021-05-01' OR date='2021-06-01' OR date='2021-07-01' OR date='2021-08-01');
 ~~~
 
-> Se usar Orange para alguma análise, você pode apresentar uma captura do workflow, como o exemplo a seguir e descrevê-lo:
-![Workflow no Orange](images/orange-zombie-meals-prediction.png)
-> Coloque um link para o arquivo do notebook, programas ou workflows que executam as operações que você apresentar.
-> Aqui devem ser apresentadas as operações de construção do dataset:
-* extração de dados de fontes não estruturadas como, por exemplo, páginas Web
-* agregação de dados fragmentados obtidos a partir de API
-* integração de dados de múltiplas fontes
-* tratamento de dados
-* transformação de dados para facilitar análise e pesquisa
-> Se for notebook, ele estará dentro da pasta `notebook`. Se por alguma razão o código não for executável no Jupyter, coloque na pasta `src` (por exemplo, arquivos do Orange ou Cytoscape). Se as operações envolverem queries executadas atraves de uma interface de um SGBD não executável no Jupyter, como o Cypher, apresente na forma de markdown.
+Essas duas fontes foram usadas específicamente focadas nos dados do contágio e casos de morte por Covid em países da Europa. Já para os dados dos Estados Unidos foi importados os dados do dataset do NY Times e do Plos One.
+
+~~~
+# IMPORTAR ARQUIVOS CSV PARA OS EUA
+
+DROP TABLE IF EXISTS dados_nyt;
+
+CREATE TABLE dados_nyt (
+	id INTEGER NOT NULL,
+	date VARCHAR(10),
+	state VARCHAR(40),
+	fips INTEGER,
+	cases INTEGER,
+	deaths INTEGER,
+	PRIMARY KEY(ID)
+);
+
+COPY dados_nyt
+FROM '../data/external/nyt.csv'
+DELIMITER ','
+CSV HEADER;
+~~~
+
+Após o tratameto e união dos dados da Europa e dos Estados Unidos e suas respectivas tabelas europa_final e eua_final foi possível unir todos os dados em uma tabela final que representaria o dataset completo. 
+
+~~~
+# UNINDO AS TABELAS FINAIS DA EUROPA E DOS EUA - processo de construção do datset finalizado
+
+DROP TABLE IF EXISTS tabela_final;
+
+CREATE TABLE tabela_final AS
+SELECT * 
+FROM europa_final;
+
+INSERT INTO tabela_final(id, location, date, new_cases, total_cases, new_deaths, total_deaths, mask_use_percentage)
+    SELECT id, location, date, new_cases, total_cases, new_deaths, total_deaths, mask_use_percentage
+    FROM eua_final;
+~~~
+
+Por fim, tabela_final foi exportada como casos.csv para a versão final do modelo relacional do dataset. O dataset completo é representado pelos arquivos [casos.csv](data/processed/casos.csv) e [populacao.csv](data/processed/populacao.csv).
+
+~~~
+# CRIANDO O DATASET FINALIZADO
+
+CREATE TABLE casos (
+	id INTEGER NOT NULL,
+	location VARCHAR(20),
+	date DATE,
+  total_cases INTEGER,
+  new_cases INTEGER,
+  total_deaths INTEGER,
+  new_deaths INTEGER,
+	mask_use_percentage DEC(4, 2),
+  new_cases_per_million_habitants DEC(4, 2),
+  new_deaths_per_million_habitants DEC(4, 2),
+  total_cases_per_million_habitants DEC(4, 2),
+  total_deaths_per_million_habitants DEC(4, 2),
+  population INTEGER,
+	PRIMARY KEY(id),
+  FOREIGN KEY(location)
+    REFERENCES populacao(location)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
+
+COPY casos
+FROM '../data/processed/casos.csv'
+DELIMITER ','
+CSV HEADER;
+~~~
+
+~~~
+# CRIANDO A TABELA POPULACAO
+
+CREATE TABLE populacao(
+  location VARCHAR(5) NOT NULL,
+  population VARCHAR(6) NOT NULL,
+  PRIMARY KEY(location)
+);
+COPY populacao
+FROM '../data/processed/populacao.csv'
+DELIMITER ','
+CSV HEADER;
+~~~
+
 ## Evolução do Projeto
 > Relatório de evolução, descrevendo as evoluções na modelagem do projeto, dificuldades enfrentadas, mudanças de rumo, melhorias e lições aprendidas. Referências aos diagramas, modelos e recortes de mudanças são bem-vindos.
 > Podem ser apresentados destaques na evolução dos modelos conceitual e lógico. O modelo inicial e intermediários (quando relevantes) e explicação de refinamentos, mudanças ou evolução do projeto que fundamentaram as decisões.
