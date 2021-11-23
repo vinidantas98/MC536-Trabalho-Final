@@ -79,13 +79,10 @@ plt.show();
 > Relatar o processo para se alcançar os resultados é tão importante quanto os resultados.
 ## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
 
-> Apresente os resultados da forma mais rica possível, com gráficos e tabelas. Mesmo que o seu código rode online em um notebook, copie para esta parte a figura estática. A referência a código e links para execução online pode ser feita aqui ou na seção de detalhamento do projeto (o que for mais pertinente).
-> Liste aqui as perguntas de pesquisa/análise e respectivas análises. Nem todas as perguntas precisam de queries que as implementam. É possível haver perguntas em que a solução é apenas descrita para demonstrar o potencial da base. Abaixo são ilustradas três perguntas, mas pode ser um número maior a critério da equipe.
->
-### Perguntas/Análise com Resposta Implementada
-
 ### Pergunta/Análise 1
  * Os locais com maior número de casos são também os lugares com menor índice de uso de máscaras?
+
+Para responder essa pergunta foi utilizada a estratégia de avaliar o número de casos confirmados de Covid-19 para cada quartil da porcentagem de adesão ao uso de máscara. Assim, é possível verificar se há alguma relação entre o número de de casos e o uso de máscaras e se países com maiores porcentagens de adesão ao uso da máscara possuem os menores números de casos de Covid.
  ~~~
 SELECT sum(new_cases),
        avg(new_cases)
@@ -111,6 +108,9 @@ WHERE mask_use_percentage >= 75;
 
 ### Pergunta/Análise 2
  * Quais são os locais com maior número de casos por índice de uso de máscaras?
+
+Além de olhar a relação entre a adesão ao uso de máscaras e os casos confirmados de Covid em números absolutos é possível verificar essa relação em termos relativos. Para isso é possível criar a variável case_mask_rate como a taxa new_cases/mask_use_percentage e ordenar os países com o maior número de casos por índice de máscara.
+
   ~~~
 SELECT location,
 	   date,
@@ -126,7 +126,10 @@ LIMIT 20;
 
 ### Pergunta/Análise 3
  * Há algum indício de que a frequência de uso de máscara influência na taxa de mortalidade?
-  ~~~
+
+Assim como o número de casos, a taxa de mortalidade também é um dado que é possível relacionar com a adesão ao uso de máscara. Para verificar de maneira mais eficiente a influência do uso de máscara na taxa de mortalidade, faz-se necessário entender os valores de forma relativa. Assim é possível gerar a taxa de mortalidaaade (número de mortes confirmadas por Covid para cada caso) mensal e total, permitindo analisar a influência do uso da máscara ao longo dos meses de pandemia sobre a taxa de mortalidade.
+
+~~~
 SELECT  location,
         date,
         mask_use_percentage,
