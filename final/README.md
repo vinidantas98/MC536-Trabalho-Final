@@ -19,9 +19,10 @@ Logo, nosso objetivo com esse trabalho é extrair, tratar e compilar dados  de f
 ## Modelos Lógicos
 
 ~~~
-CASO(_id_, locations, date, new_cases, total_cases, new_deaths, total_deaths, mask_use_percentage, new_cases_per_million_habitants, new_deaths_per_million_habitants, total_cases_per_million_habitants, total_deaths_per_million_habitants, , population)
+CASOS(_id_, location, date, new_cases, total_cases, new_deaths, total_deaths, mask_use_percentage, new_cases_per_million_habitants, new_deaths_per_million_habitants, total_cases_per_million_habitants, total_deaths_per_million_habitants, , population)
+  location chave estrangeira -> POPULACAO(location)
+
 POPULACAO(location,  population)
-  location chave estrangeira -> CASO(id)
 ~~~
 
 > ![Modelo Lógico Hierárquico](assets/modelo-logico-hierarquico.png)
@@ -41,7 +42,7 @@ owid-covid-data.csv | [raw](data/raw/owid-covid-data.csv) | Dados sobre quantida
 plosone.csv | [raw](data/raw/plosone.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
 yougov-chart.csv | [raw](data/raw/yougov-chart.csv) | Dados sobre a porcentagem de uso de máscaras em lugares públicos em 23 países em diferentes regiões do mundo.
 casos.csv | [processed](data/processed/casos.csv) | Dataset finalizado.
-populacoes.csv | [processed](data/raw/casos.csv) | Dados sobre a quantidade populacional para cada localização.
+populacao.csv | [processed](data/processed/populacao.csv) | Dados sobre a quantidade populacional para cada localização.
 
 ## Bases de Dados
 
