@@ -1,105 +1,53 @@
-# Modelo de Apresentação da Final
+# Projeto COVID-19: Integração de Dados Internacionais para Análise da Pandemia
 
-# Estrutura de Arquivos e Pastas
-
-A estrutura aqui apresentada é uma simplificação daquela proposta pelo [Cookiecutter Data Science](https://drivendata.github.io/cookiecutter-data-science/). Também será aceito que o projeto adote a estrutura completa do Cookiecutter Data Science e isso será considerado um diferencial. A estrutura geral é a seguinte e será detalhada a seguir:
-
-~~~
-├── README.md  <- arquivo apresentando a proposta
-│
-├── data
-│   ├── external       <- dados de terceiros em formato usado para entrada na transformação
-│   ├── interim        <- dados intermediários, e.g., resultado de transformação
-│   ├── processed      <- dados finais usados para a publicação
-│   └── raw            <- dados originais sem modificações
-│
-├── notebooks          <- Jupyter notebooks ou equivalentes
-│
-├── slides             <- arquivo de slides em formato PDF
-│
-├── src                <- fonte em linguagem de programação ou sistema (e.g., Orange, Cytoscape)
-│   └── README.md      <- instruções básicas de instalação/execução
-│
-└── assets             <- mídias usadas no projeto
-~~~
-
-Na raiz deve haver um arquivo de nome `README.md` contendo a apresentação do projeto, como detalhado na seção seguinte.
-
-## `data`
-
-Arquivos de dados usados no projeto, quando isso ocorrer.
-
-## `notebooks`
-
-Testes ou prototipos relacionados ao projeto que tenham sido executados no Jupyter.
-
-## `src`
-
-Projeto na linguagem escolhida caso não seja usado o notebook, incluindo todos os arquivos de dados e bibliotecas necessários para a sua execução. Só coloque código Pyhton ou Java aqui se ele não rodar dentro do notebook.
-
- Acrescente na raiz um arquivo `README.md` com as instruções básicas de instalação e execução.
-
-## `assets`
-
-Qualquer mídia usada no seu projeto: vídeo, imagens, animações, slides etc. Coloque os arquivos aqui (mesmo que você mantenha uma cópia no diretório do código).
-
-# Modelo para Apresentação da Entrega Prévia do Projeto
-
-# Projeto `<Título do Projeto>`
-
-# Equipe `<nome da equipe>` - `<sigla da equipe>`
-* `<nome completo>` - `<RA>`
-* `<nome completo>` - `<RA>`
-* `<nome completo>` - `<RA>`
+# Equipe Coviders - CVDRS
+* `Fernando dos Reis Santos Filho` - `234471`
+* `Renan Hiroki Bastos` - `176573`
+* `Vinicius Alves Mancine Dantas` - `188092`
 
 ## Resumo do Projeto
-> Texto resumindo o projeto.
-## Slides da Apresentação
-> Coloque aqui o link para o PDF da apresentação final
-## Modelo Conceitual
+O final do ano de 2019 foi marcado pelo surgimento do vírus Sars-CoV-2, responsável pela doença Covid-19 e por uma intensa pandemia com consequências socioeconômicas e sanitárias gravíssimas, graças à sua alta taxa de transmissão. Hoje, quase dois anos depois, grandes bases de dados foram e ainda são construídas ao redor do mundo catalogando os milhões de casos e mortes confirmados por Covid-19 todos os dias.
 
-> Coloque aqui a imagem do modelo conceitual final em ER ou UML, como o exemplo a seguir:
-> ![ER Taxi](images/er-taxi.png)
+Durante todo o período de pandemia, recomendações sobre lavar as mãos, evitar aglomeração e utilizar máscara foram fortemente disseminadas. Porém, ao redor do mundo tivemos inúmeros casos de resistência ao uso de máscara, atitude que contribuiu com a alta taxa de transmissão do vírus. Com isso, algumas dúvidas surgiram a respeito de quanto o uso da máscara influencia na disseminação do vírus e se lugares onde o uso de máscara não foi frequente apresentam maiores números de contaminados e mortos por Covid-19.
+
+Logo, nosso objetivo com esse trabalho é extrair, tratar e compilar dados  de fontes distintas relacionados à Covid-19 e a sua prevenção através do uso de máscaras em um único dataset público. Assim, será possível fazer análises sobre a pandemia, a adoção e a eficácia deste método de prevenção em um contexto global através de um único dataset.
+## Slides da Apresentação
+[slides apresentação](slides/MC536-TrabalhoFinal.pdf)
+## Modelo Conceitual Preliminar
+
+> ![Modelo conceitual](assets/modelo-conceitual.png)
 ## Modelos Lógicos
 
-> Coloque aqui os modelos lógicos dos bancos de dados relacionados aos modelos conceituais. Para o modelo relacional, sugere-se o formato a seguir. Para outros modelos lógicos, sugere-se aqueles apresentados em sala.
-> Exemplo de modelo lógico relacional
 ~~~
-PESSOA(_Código_, Nome, Telefone)
-ARMÁRIO(_Código_, Tamanho, Ocupante)
-  Ocupante chave estrangeira -> PESSOA(Código)
+CASO(_id_, locations, date, new_cases, total_cases, new_deaths, total_deaths, mask_use_percentage, new_cases_per_million_habitants, new_deaths_per_million_habitants, total_cases_per_million_habitants, total_deaths_per_million_habitants, , population)
+POPULACAO(location,  population)
+  location chave estrangeira -> CASO(id)
 ~~~
-> Para o modelo de grafos de propriedades, utilize este
-> [modelo de base](https://docs.google.com/presentation/d/10RN7bDKUka_Ro2_41WyEE76Wxm4AioiJOrsh6BRY3Kk/edit?usp=sharing) para construir o seu.
-> Coloque a imagem do PNG do seu modelo lógico como ilustrado abaixo (a imagem estará na pasta `image`):
->
-> ![Modelo Lógico de Grafos](images/modelo-logico-grafos.png)
-> Para o modelo de grafos de conhecimento, utilize a abordagem
-> (recurso, propriedade, valor) para apresentar seu grafo exemplo.
-> Coloque a imagem do PNG do seu modelo lógico como ilustrado abaixo (a imagem estará na pasta `image).
->
-> Você pode usar um grafo ilustrando as classes, como este:
-> ![Modelo Lógico de Grafos de Conhecimento](images/grafo-conhecimento-classes.png)
->
-> Além de outro com exemplo de instâncias, como este:
-> ![Modelo Lógico de Grafos](images/grafo-conhecimento-exemplo.png)
-> Para modelos hierárquicos (XML e JSON), utilize um formato
-> conforme o abaixo:
-> ![Modelo Lógico Hierárquico](images/modelo-logico-hierarquico.png)
+
+> ![Modelo Lógico Hierárquico](assets/modelo-logico-hierarquico.png)
+
 ## Dataset Publicado
-> Elencar os arquivos/bases preliminares dos datasets serão publicados.
+
 título do arquivo/base | link | breve descrição
 ----- | ----- | -----
-`<título do arquivo/base>` | `<link para arquivo/base>` | `<breve descrição do arquivo/base>`
-
-> Os arquivos finais do dataset publicado devem ser colocados na pasta `data`, em subpasta `processed`. Outros arquivos serão colocados em subpastas conforme seu papel (externo, interim, raw). A diferença entre externo e raw é que o raw é em formato não adaptado para uso. A pasta `raw` é opcional, pois pode ser substituída pelo link para a base original da seção anterior.
-> Coloque arquivos que não estejam disponíveis online e sejam acessados pelo notebook. Relacionais (usualmente CSV), XML, JSON e CSV ou triplas para grafos.
-> Este é o conjunto mínimo de informações que deve constar na disponibilização do Dataset, mas a equipe pode enriquecer esta seção.
+dados_nyt_tratados.csv  | ![interim](data/interim/dados_nyt_tratados.csv) | Dados sobre uso de máscara, quantidades de casos e quantidade de mortes por Covid-19 nos Estados Unidos, dividido por estados e cidades.
+dados_owid_tratados.csv | ![interim](data/interim/dados_owid_tratados.csv) | Dados sobre quantidade de casos e quantidade de mortes por Covid-19 em 196 países, além de informações sobre vacinação, testes e hospitais em cerca de 200 países.
+dados_plosone_tratados.csv | ![interim](data/interim/dados_plosone_tratados.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
+eua_final.csv | ![interim](data/interim/eua_final.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
+europa_final.csv | ![interim](data/interim/europa_final.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados da Europa.
+yougov-tratada.csv | ![external](data/external/yougov-tratada.csv) | Dados sobre a porcentagem de uso de máscaras em lugares públicos em 23 países em diferentes regiões do mundo.
+nyt.csv | ![raw](data/raw/nyt.csv) | Dados sobre uso de máscara, quantidades de casos e quantidade de mortes por Covid-19 nos Estados Unidos, dividido por estados e cidades.
+owid-covid-data.csv | ![raw](data/raw/owid-covid-data.csv) | Dados sobre quantidade de casos e quantidade de mortes por Covid-19 em 196 países, além de informações sobre vacinação, testes e hospitais em cerca de 200 países.
+plosone.csv | ![raw](data/raw/plosone.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
+yougov-chart.csv | [raw](data/raw/yougov-chart.csv) | Dados sobre a porcentagem de uso de máscaras em lugares públicos em 23 países em diferentes regiões do mundo.
 ## Bases de Dados
-> Elencar as bases de dados fonte utilizadas no projeto.
+
 título da base | link | breve descrição
 ----- | ----- | -----
-`<título da base>` | `<link para a página da base>` | `<breve descrição da base>`
+Coronavirus (Covid-19) Data in the United States | https://github.com/nytimes/covid-19-data | Dados sobre uso de máscara, quantidades de casos e quantidade de mortes por Covid-19 nos Estados Unidos, dividido por estados e cidades.
+Data on COVID-19 (coronavirus) by Our World in Data | https://github.com/owid/covid-19-data/tree/master/public/data | Dados sobre quantidade de casos e quantidade de mortes por Covid-19 em 196 países, além de informações sobre vacinação, testes e hospitais em cerca de 200 países.
+Personal measures taken to avoid COVID-19 | https://today.yougov.com/topics/international/articles-reports/2020/03/17/personal-measures-taken-avoid-covid-19 | Dados sobre a porcentagem de uso de máscaras em lugares públicos em 23 países em diferentes regiões do mundo.
+Mask adherence and rate of COVID-19 across the United States | https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0249891#sec011 | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
 
 ## Detalhamento do Projeto
 > Apresente aqui detalhes do processo de construção do dataset e análise. Nesta seção ou na seção de Perguntas podem aparecer destaques de código como indicado a seguir. Note que foi usada uma técnica de highlight de código, que envolve colocar o nome da linguagem na abertura de um trecho com `~~~`, tal como `~~~python`.
@@ -131,35 +79,128 @@ plt.show();
 > Liste aqui as perguntas de pesquisa/análise e respectivas análises. Nem todas as perguntas precisam de queries que as implementam. É possível haver perguntas em que a solução é apenas descrita para demonstrar o potencial da base. Abaixo são ilustradas três perguntas, mas pode ser um número maior a critério da equipe.
 >
 ### Perguntas/Análise com Resposta Implementada
-> As respostas às perguntas podem devem ser ilustradas da forma mais rica possível com tabelas resultantes, grafos ou gráficos que apresentam os resultados. Os resultados podem ser analisados e comentados. Veja um exemplo de figura ilustrando uma comunidade detectada no Cytoscape:
-> ![Comunidade no Cytoscape](images/cytoscape-comunidade.png)
-#### Pergunta/Análise 1
-> * Pergunta 1
->   
->   * Explicação sucinta da análise que será feita e conjunto de queries que
->     responde à pergunta.
-#### Pergunta/Análise 2
-> * Pergunta 2
->   
->   * Explicação sucinta da análise que será feita e conjunto de queries que
->     responde à pergunta.
-#### Pergunta/Análise 3
-> * Pergunta 3
->   
->   * Explicação sucinta da análise que será feita e conjunto de queries que
->     responde à pergunta.
-### Perguntas/Análise Propostas mas Não Implementadas
 
-#### Pergunta/Análise 1
-> * Pergunta 1
->   
->   * Explicação em linhas gerais de como a base pode ser usada para responder esta pergunta e a sua relevância.
-#### Pergunta/Análise 2
-> * Pergunta 2
->   
->   * Explicação em linhas gerais de como a base pode ser usada para responder esta pergunta e a sua relevância.
-#### Pergunta/Análise 3
-> * Pergunta 3
->   
->   * Explicação em linhas gerais de como a base pode ser usada para responder esta pergunta e a sua relevância.
-> Coloque um link para o arquivo do notebook que executa o conjunto de queries. Ele estará dentro da pasta `notebook`. Se por alguma razão o código não for executável no Jupyter, coloque na pasta `src`. Se as queries forem executadas atraves de uma interface de um SGBD não executável no Jupyter, como o Cypher, apresente na forma de markdown.
+### Pergunta/Análise 1
+ * Os locais com maior número de casos são também os lugares com menor índice de uso de máscaras?
+ ~~~
+SELECT sum(new_cases),
+       avg(new_cases)
+FROM Tabela_final,
+WHERE mask_use_percentage < 25;
+
+SELECT sum(new_cases),
+       avg(new_cases)
+FROM Tabela_final,
+WHERE mask_use_percentage >= 25 AND mask_use_percentage < 50;
+
+SELECT sum(new_cases),
+       avg(new_cases)
+FROM Tabela_final,
+WHERE mask_use_percentage >= 50 AND mask_use_percentage < 75; 
+
+SELECT sum(new_cases),
+       avg(new_cases)
+FROM Tabela_final,
+WHERE mask_use_percentage >= 75;
+ ~~~
+
+
+### Pergunta/Análise 2
+ * Quais são os locais com maior número de casos por índice de uso de máscaras?
+  ~~~
+SELECT location,
+	   date,
+	   mask_use_percentage,
+	   new_cases,
+	   new_cases/mask_use_percentage as case_mask_rate
+FROM tabela_final
+WHERE mask_use_percentage > 0 AND new_cases > 0
+ORDER BY case_mask_rate DESC
+LIMIT 20;
+ ~~~
+ 
+
+### Pergunta/Análise 3
+ * Há algum indício de que a frequência de uso de máscara influência na taxa de mortalidade?
+  ~~~
+SELECT  location,
+        date,
+        mask_use_percentage,
+        new_deaths/new_cases as monthly_death_rate,
+        total_deaths/total_cases as overall_death_rate
+FROM tabela_final
+ORDER BY mask_use_percentage, monthly_death_rate;
+ ~~~
+ 
+### Pergunta/Análise 4
+ * Locais na mesma faixa de porcentagem de uso de máscara possuem taxas de infecções parecidas?
+  ~~~
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage < 10;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 10 AND mask_user_percentage < 20;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 20 AND mask_user_percentage < 30;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 30 AND mask_user_percentage < 40;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 40 AND mask_user_percentage < 50;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 50 AND mask_user_percentage < 60;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 60 AND mask_user_percentage < 70;
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 70 AND mask_user_percentage < 80;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 80 AND mask_user_percentage < 90;
+
+SELECT location,
+       new_cases
+FROM Tabela_final,
+WHERE mask_use_percentage >= 90;
+ ~~~
+
+### Pergunta/Análise 5
+ * A proporção mortes/casos é influênciada pela frequência no uso de máscara?
+  ~~~
+SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
+FROM Tabela_final
+WHERE mask_use_percentage < 25;
+
+SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
+FROM Tabela_final
+WHERE mask_use_percentage >= 25 AND mask_use_percentage < 50;
+
+SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
+FROM Tabela_final
+WHERE mask_use_percentage >= 50 AND mask_use_percentage < 75; 
+
+SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
+FROM Tabela_final
+WHERE mask_use_percentage >= 75;
+ ~~~
