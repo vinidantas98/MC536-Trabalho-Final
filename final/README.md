@@ -17,14 +17,15 @@ Logo, nosso objetivo com esse trabalho é extrair, tratar e compilar dados  de f
 
 > ![Modelo conceitual](assets/modelo-conceitual.png)
 ## Modelos Lógicos
-
+### Modelo Relacional 
 ~~~
-CASOS(_id_, location, date, new_cases, total_cases, new_deaths, total_deaths, mask_use_percentage, new_cases_per_million_habitants, new_deaths_per_million_habitants, total_cases_per_million_habitants, total_deaths_per_million_habitants, , population)
+CASOS(_id_, location, date, new_cases, total_cases, new_deaths, total_deaths, mask_use_percentage, new_cases_per_million_habitants, new_deaths_per_million_habitants, total_cases_per_million_habitants, total_deaths_per_million_habitants, population)
   location chave estrangeira -> POPULACAO(location)
 
 POPULACAO(location,  population)
 ~~~
 
+### Modelo Hierárquico 
 > ![Modelo Lógico Hierárquico](assets/modelo-logico-hierarquico.png)
 
 ## Dataset Publicado
@@ -42,6 +43,7 @@ owid-covid-data.csv | [raw](data/raw/owid-covid-data.csv) | Dados sobre quantida
 plosone.csv | [raw](data/raw/plosone.csv) | Dados sobre o uso de máscaras, quantidade de casos e quantidade de mortes de Covid-19 em 22 estados dos Estados Unidos.
 yougov-chart.csv | [raw](data/raw/yougov-chart.csv) | Dados sobre a porcentagem de uso de máscaras em lugares públicos em 23 países em diferentes regiões do mundo.
 casos.csv | [processed](data/processed/casos.csv) | Dataset finalizado.
+casos.json | [processed](data/processed/casos.json) | Dataset finalizado em JSON.
 populacao.csv | [processed](data/processed/populacao.csv) | Dados sobre a quantidade populacional para cada localização.
 
 ## Bases de Dados
@@ -55,9 +57,9 @@ Mask adherence and rate of COVID-19 across the United States | https://journals.
 
 ## Detalhamento do Projeto
 
-Tendo as fontes necessárias, foram utilizadas técnicas de extração, integração de dados de múltiplas fontes e o tratamento dos dados para implementação e padronização do banco de dados de acordo com os modelos já discutidos. O processo de construção do dataset envolveu três etapas: extrair e importar os dados das fontes, tratar cada um dos dos dados importados de acordo com as necessidades dos modelos do dataset e unir os dados tratadas das múltiplas fontes e um único database. Todo esse processo foi descrito neste Notebook: [src](src/Notebook_Trabalho_Final.ipynb), embora seja não executável. 
+Tendo as fontes necessárias, foram utilizadas técnicas de extração, integração de dados de múltiplas fontes e o tratamento dos dados para implementação e padronização do banco de dados de acordo com os modelos já discutidos. O processo de construção do dataset envolveu três etapas: extrair e importar os dados das fontes, tratar cada um dos dos dados importados de acordo com as necessidades dos modelos do dataset e unir os dados tratados das múltiplas fontes e um único database. Todo esse processo foi descrito neste Notebook: [src](src/Notebook_Trabalho_Final.ipynb), embora seja não executável. 
 
-Para os dados da YouGov, foi realizado uma média por mês de todas as coletas sobre a porcentagem do uso de máscara naquele país, além da remoção das células onde o somatório foi 0, ou seja, não houve nenhuma coleta de dados sobre o uso de máscaras naquele mês. Já os dados extraídos da “Our World in Data” foi necessária a remoção dos países não incluídos nas pesquisas sobre máscaras, remoção das colunas irrelevantes para nossa análise e compilação dos casos diários de contaminação por COVID-19 em dados mensais. 
+Para os dados da YouGov, foi realizado uma média por mês de todas as coletas sobre a porcentagem do uso de máscara naquele país, além da remoção das células onde o somatório foi 0, ou seja, não houve nenhuma coleta de dados sobre o uso de máscaras naquele mês. Já os dados extraídos da “Our World in Data” foi necessário realizar a remoção dos países não incluídos nas pesquisas sobre máscaras, remoção das colunas irrelevantes para nossa análise e compilação dos casos diários de contaminação por COVID-19 em dados mensais.
 
 ~~~
 # TRATAR DADOS DA OUR WORLD IN DATA (EUROPA)
