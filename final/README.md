@@ -173,25 +173,25 @@ CSV HEADER;
 ### Pergunta/Análise 1
  * Os locais com maior número de casos são também os lugares com menor índice de uso de máscaras?
 
-Para responder essa pergunta foi utilizada a estratégia de avaliar o número de casos confirmados de Covid-19 para cada quartil da porcentagem de adesão ao uso de máscara. Assim, é possível verificar se há alguma relação entre o número de de casos e o uso de máscaras e se países com maiores porcentagens de adesão ao uso da máscara possuem os menores números de casos de Covid.
+Para responder essa pergunta foi utilizada a estratégia de avaliar o número de novos casos confirmados de Covid-19 por milhão de habitantes para cada faixa de porcentagem de adesão ao uso de máscara. Assim, é possível verificar se há alguma relação entre o número de casos e o uso de máscaras e se países com maiores porcentagens de adesão ao uso da máscara possuem os menores números de casos de Covid.
  ~~~
-SELECT sum(new_cases),
-       avg(new_cases)
+SELECT sum(new_cases_per_million_habitants),
+       avg(new_cases_per_million_habitants)
 FROM casos,
 WHERE mask_use_percentage < 25;
 
-SELECT sum(new_cases),
-       avg(new_cases)
+SELECT sum(new_cases_per_million_habitants),
+       avg(new_cases_per_million_habitants)
 FROM casos,
 WHERE mask_use_percentage >= 25 AND mask_use_percentage < 50;
 
-SELECT sum(new_cases),
-       avg(new_cases)
+SELECT sum(new_cases_per_million_habitants),
+       avg(new_cases_per_million_habitants)
 FROM casos,
 WHERE mask_use_percentage >= 50 AND mask_use_percentage < 75; 
 
-SELECT sum(new_cases),
-       avg(new_cases)
+SELECT sum(new_cases_per_million_habitants),
+       avg(new_cases_per_million_habitants)
 FROM casos,
 WHERE mask_use_percentage >= 75;
  ~~~
@@ -200,14 +200,14 @@ WHERE mask_use_percentage >= 75;
 ### Pergunta/Análise 2
  * Quais são os locais com maior número de casos por índice de uso de máscaras?
 
-Além de olhar a relação entre a adesão ao uso de máscaras e os casos confirmados de Covid em números absolutos é possível verificar essa relação em termos relativos. Para isso é possível criar a variável case_mask_rate como a taxa new_cases/mask_use_percentage e ordenar os países com o maior número de casos por índice de máscara.
+Além de olhar a relação entre a adesão ao uso de máscaras e os novos casos confirmados de Covid por milhão de habitantes em números absolutos é possível verificar essa relação em termos relativos. Para isso é possível criar a variável case_mask_rate como a taxa new_cases/mask_use_percentage e ordenar os países com o maior número de casos por índice de máscara.
 
   ~~~
 SELECT location,
 	   date,
 	   mask_use_percentage,
-	   new_cases,
-	   new_cases/mask_use_percentage as case_mask_rate
+	   new_cases_per_million_habitants,
+	   new_cases_per_million_habitants/mask_use_percentage as case_mask_use_rate
 FROM casos
 WHERE mask_use_percentage > 0 AND new_cases > 0
 ORDER BY case_mask_rate DESC
@@ -218,67 +218,84 @@ LIMIT 20;
 ### Pergunta/Análise 3
  * Há algum indício de que a frequência de uso de máscara influência na taxa de mortalidade?
 
-Assim como o número de casos, a taxa de mortalidade também é um dado que é possível relacionar com a adesão ao uso de máscara. Para verificar de maneira mais eficiente a influência do uso de máscara na taxa de mortalidade, faz-se necessário entender os valores de forma relativa. Assim é possível gerar a taxa de mortalidaaade (número de mortes confirmadas por Covid para cada caso) mensal e total, permitindo analisar a influência do uso da máscara ao longo dos meses de pandemia sobre a taxa de mortalidade.
+Assim como o número de casos, a taxa de mortalidade também é um dado que é possível relacionar com a adesão ao uso de máscara. Para verificar de maneira mais eficiente a influência do uso de máscara na taxa de mortalidade, faz-se necessário entender os valores de forma relativa. Assim é possível gerar a taxa de mortalidade (número de mortes confirmadas por Covid para cada caso) mensal e total, permitindo analisar a influência do uso da máscara ao longo dos meses de pandemia sobre a taxa de mortalidade.
 
 ~~~
 SELECT  location,
         date,
         mask_use_percentage,
-        new_deaths/new_cases as monthly_death_rate,
-        total_deaths/total_cases as overall_death_rate
+        new_deaths*100/new_cases as monthly_death_rate,
+        total_deaths*100/total_cases as overall_death_rate
+FROM tabela_final_final
+WHERE new_cases != 0 AND total_cases != 0 AND mask_use_percentage IS NOT NULL
+ORDER BY mask_use_percentage DESC;
+
+SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
 FROM casos
-ORDER BY mask_use_percentage, monthly_death_rate;
+WHERE mask_use_percentage < 25;
+
+SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
+FROM casos
+WHERE mask_use_percentage >= 25 AND mask_use_percentage < 50;
+
+SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
+FROM casos
+WHERE mask_use_percentage >= 50 AND mask_use_percentage < 75; 
+
+SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
+FROM casos
+WHERE mask_use_percentage >= 75;
  ~~~
  
 ### Pergunta/Análise 4
  * Locais na mesma faixa de porcentagem de uso de máscara possuem taxas de infecções parecidas?
   ~~~
 SELECT location,
-       new_cases
+       new_cases_per_million_habitants
 FROM casos,
 WHERE mask_use_percentage < 10;
 
 SELECT location,
-       new_cases
+       new_cases_per_million_habitants
 FROM casos,
 WHERE mask_use_percentage >= 10 AND mask_user_percentage < 20;
 
 SELECT location,
-       new_cases
+       new_cases_per_million_habitants
 FROM casos,
 WHERE mask_use_percentage >= 20 AND mask_user_percentage < 30;
 
 SELECT location,
-       new_cases
+       new_cases_per_million_habitants
 FROM casos,
 WHERE mask_use_percentage >= 30 AND mask_user_percentage < 40;
 
 SELECT location,
-       new_cases
+       new_cases_per_million_habitants
 FROM casos,
 WHERE mask_use_percentage >= 40 AND mask_user_percentage < 50;
 
 SELECT location,
-       new_cases
+       new_cases_per_million_habitants
 FROM casos,
 WHERE mask_use_percentage >= 50 AND mask_user_percentage < 60;
 
 SELECT location,
-       new_cases
+       new_cases_per_million_habitants
 FROM casos,
 WHERE mask_use_percentage >= 60 AND mask_user_percentage < 70;
 SELECT location,
-       new_cases
+       new_cases_per_million_habitants
 FROM casos,
 WHERE mask_use_percentage >= 70 AND mask_user_percentage < 80;
 
 SELECT location,
-       new_cases
+       new_cases_per_million_habitants
 FROM casos,
 WHERE mask_use_percentage >= 80 AND mask_user_percentage < 90;
 
 SELECT location,
-       new_cases
+       new_cases_per_million_habitants
 FROM casos,
 WHERE mask_use_percentage >= 90;
  ~~~
