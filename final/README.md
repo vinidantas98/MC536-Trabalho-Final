@@ -231,7 +231,7 @@ CASOS(_id_, location, date, new_cases, total_cases, new_deaths, total_deaths, ma
 POPULACAO(location,  population)
 ~~~
 
-O modelo lógico hierárquico foi o último e ser feito, por isso foi feita já com a versão final do dataset e modelo conceitual. Porém, sua construção foi um processo desafiador. Foi necessário um script em python para reorganizar os arquivos CSV relacionais estrutuados em arquivos hierárquicos semi-estruturados JSON. O script para essa conversão é apresentado neste [Notebook](./notebooks/csvtojson.ipynb). Nele fazemos a leitura do tabela final e varremos criando dois vetores, o primeiro contendo todas as localizações e o segundo contendo todas as datas as quais nos temos dados, com isso criamos um dicionário nos baseando no modelo hierárquico desenvolvido e varremos todas as linhas da tabela final populando nosso dicionário.
+O modelo lógico hierárquico foi o último e ser feito, por isso foi feita já com a versão final do dataset e modelo conceitual. Porém, sua construção foi um processo desafiador. Foi necessário um script em python para reorganizar os arquivos CSV relacionais estrutuados em arquivos hierárquicos semi-estruturados JSON. O script para essa conversão é apresentado neste [Notebook](./notebooks/csvtojson.ipynb). Nele fazemos a leitura do tabela final e varremos criando dois vetores, o primeiro contendo todas as localizações e o segundo contendo todas as datas as quais nós temos dados, com isso criamos um dicionário nos baseando no modelo hierárquico desenvolvido e varremos todas as linhas da tabela final populando nosso dicionário, completando com a adição da população de cada local.
 
 ## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
 
@@ -314,6 +314,9 @@ WHERE mask_use_percentage >= 75;
  
 ### Pergunta/Análise 4
  * Locais na mesma faixa de porcentagem de uso de máscara possuem taxas de infecções parecidas?
+
+Com está análise podemos relacionar e comparar as taxas de infecções em diferentes partes do mundo com base na faixa de porcentagem de uso de máscaras, permitindo estudos mais complexos sobre a influência da taxa de uso de máscaras nas taxas de infecções além de evidenciar locais que, por algum motivo, se diferenciaram muito em suas taxas de infecções quando comparados a outros na mesma faixa, onde estudos mais aprofundados sobre os motivos dessa diferenciação podem ser aplicados.
+
   ~~~
 SELECT location,
        new_cases_per_million_habitants
@@ -365,22 +368,3 @@ FROM casos,
 WHERE mask_use_percentage >= 90;
  ~~~
 
-### Pergunta/Análise 5
- * A proporção mortes/casos é influênciada pela frequência no uso de máscara?
-  ~~~
-SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
-FROM casos
-WHERE mask_use_percentage < 25;
-
-SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
-FROM casos
-WHERE mask_use_percentage >= 25 AND mask_use_percentage < 50;
-
-SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
-FROM casos
-WHERE mask_use_percentage >= 50 AND mask_use_percentage < 75; 
-
-SELECT avg(new_deaths*100/new_cases) as avarage_death_rate
-FROM casos
-WHERE mask_use_percentage >= 75;
- ~~~
