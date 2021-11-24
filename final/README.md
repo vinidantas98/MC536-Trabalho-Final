@@ -193,6 +193,8 @@ CASOS(_id_, location, date, new_cases, total_cases, new_deaths, total_deaths, ma
 POPULACAO(location,  population)
 ~~~
 
+O modelo lógico hierárquico foi o último e ser feito, por isso foi feita já com a versão final do dataset e modelo conceitual. Porém, sua construção foi um processo desafiador. Foi necessário um script em python para reorganizar os arquivos CSV relacionais estrutuados em arquivos hierárquicos semi-estruturados JSON. O script para essa conversão é apresentado neste [Notebook](./notebooks/csvtojson.ipynb)
+
 ## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
 
 ### Pergunta/Análise 1
