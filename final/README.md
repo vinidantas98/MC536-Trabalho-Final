@@ -165,9 +165,34 @@ CSV HEADER;
 ~~~
 
 ## Evolução do Projeto
-> Relatório de evolução, descrevendo as evoluções na modelagem do projeto, dificuldades enfrentadas, mudanças de rumo, melhorias e lições aprendidas. Referências aos diagramas, modelos e recortes de mudanças são bem-vindos.
-> Podem ser apresentados destaques na evolução dos modelos conceitual e lógico. O modelo inicial e intermediários (quando relevantes) e explicação de refinamentos, mudanças ou evolução do projeto que fundamentaram as decisões.
-> Relatar o processo para se alcançar os resultados é tão importante quanto os resultados.
+
+Antes de realizar qualquer extração e tratamento dos das fontes escolhidas, o primeiro passo para a contrução do nosso dataset foi construir um modelo conceitual. Este modelo é responsável por apresentar como os dados se relacionam entre si, independentemente da sua implementação lógica. O modelo conceitual a seguir foi a primeira versão desenvolvida. Esta versão cumpria o objetivo do dataset de relacionar os casos de infecção e mortes por Covid-19 à frequência da adoção do uso das máscaras em seus respectivos países e/ou estados.
+
+> ![Modelo conceitual inicial](../parcial/images/Modelo%20conceitual.jpeg)
+
+
+Porém, ao longo do desenvolvimento do dataset surgiu a necessidade de integrarmos as quantidade populacional de cada país e/ou estado, permitindo, assim, uma análise da relação dos casos de infecção e mortes por Covid-19 à frequência da adoção do uso das máscaras em termos relativos e não apenas absolutos. Assim, foram adiconados os elementos populacao, new_cases_per_million_habitants, new_deaths_per_million_habitants, total_cases_per_million_habitants e total_deaths_per_million_habitants ao modelo conceitual.
+
+> ![Modelo conceitual](assets/modelo-conceitual.png)
+
+Com o modelo conceitual em mãos e estabelecidos os dado relevantes para o nosso dataset, foi possível a construção de modelos lógicos. A princípio os modelos escolhidos foram o modelo relacional e o modelo em grafos, porém resolvemos trocar o modelo em grafos pelo modelo hierárquico.
+O modelo relacional, além de ser o modelo mais comum e acessível, foi escolhido por sua representação dos dados em forma de tabelas, que proporciona uma visualização múltipla dos dados e facilita o tratamento e consultas em grandes quantidades de dados. Já o modelo hierárquico foi escolhido no lugar do modelo em grafos por se encaixar na forma em que nossos dados estão estruturados e pela facilidade de se trabalhar, exportar e importar dados estruturados neste modelo. A construção desses modelos e do dataset em si envolvem a integração dos dados em formato csv (Comma Separated Value) e JSON de fontes distintas, o tratamento e a transformação destes dados a fim de padronizar a representação dos modelos.
+
+A versão inicial do modelo lógico relacional tinha sido construído baseada na primeira versão do modelo conceitual.
+
+~~~
+CASO(_id_, locations, date, new_cases, total_cases, new_deaths, total_deaths, mask_use_percentage)
+~~~
+
+Porém, com a itegração dos dados populacionais, o modelo foi atualizado e a tabela POPULACAO foi criada para armazenar de maneira mais eficiente e evitando redundância na tabela principal a quantidade da população para cada local.
+
+~~~
+CASOS(_id_, location, date, new_cases, total_cases, new_deaths, total_deaths, mask_use_percentage, new_cases_per_million_habitants, new_deaths_per_million_habitants, total_cases_per_million_habitants, total_deaths_per_million_habitants, population)
+  location chave estrangeira -> POPULACAO(location)
+
+POPULACAO(location,  population)
+~~~
+
 ## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
 
 ### Pergunta/Análise 1
