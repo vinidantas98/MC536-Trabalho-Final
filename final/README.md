@@ -79,7 +79,7 @@ WHERE (location='Denmark' OR location='Finland' OR location='France' OR location
 		AND (date='2020-02-01' OR date='2020-03-01' OR date='2020-04-01' OR date='2020-05-01' OR date='2020-06-01' OR date='2020-07-01' OR date='2020-08-01' OR date='2020-09-01' OR date='2020-10-01' OR date='2020-11-01' OR date='2020-12-01' OR date='2021-01-01' OR date='2021-02-01' OR date='2021-03-01' OR date='2021-04-01' OR date='2021-05-01' OR date='2021-06-01' OR date='2021-07-01' OR date='2021-08-01');
 ~~~
 
-Essas duas fontes foram usadas específicamente focadas nos dados do contágio e casos de morte por Covid em países da Europa. Já para os dados dos Estados Unidos foi importados os dados do dataset do NY Times e do Plos One.
+Essas duas fontes foram usadas específicamente focadas nos dados do contágio e casos de morte por Covid em países da Europa. Já para os dados dos Estados Unidos foi importados os dados do dataset do NY Times e do Plos One. 
 
 ~~~
 # IMPORTAR ARQUIVOS CSV PARA OS EUA
@@ -102,7 +102,45 @@ DELIMITER ','
 CSV HEADER;
 ~~~
 
-Após o tratameto e união dos dados da Europa e dos Estados Unidos e suas respectivas tabelas europa_final e eua_final foi possível unir todos os dados em uma tabela final que representaria o dataset completo. 
+Para os dados do NY Times foi realizado um cálculo para obtermos os dados de novos casos e novas mortes, subtraindo o total de casos/mortes do mês com o total de casos/mortes do mês anterior, após isso foi realizada uma filtragem por data para obtermos somente os valores mensais de cada atributo. Utilizamos os dados do Plos One para obter o uso de máscara em cada localização, para isso foi realizada uma filtragem dos dados por localização e data e inseridas em uma tabela mascara_eua que foi inserida na tabela eua_final após o tratamento.
+
+~~~
+# TRATAR DADOS DO NYT (EUA)
+
+DROP VIEW IF EXISTS view_eua;
+DROP TABLE IF EXISTS table_eua;
+
+CREATE VIEW view_eua AS
+SELECT temp_data.id,
+	   temp_data.location,
+	   temp_data.date,
+	   temp_data.cases as total_cases,
+	   LAG(temp_data.cases) OVER (
+		   ORDER BY temp_data.location, temp_data.id) AS old_total_cases,
+	   temp_data.deaths as total_deaths,
+	   LAG(temp_data.deaths) OVER (
+		   ORDER BY temp_data.location, temp_data.id) AS old_total_deaths
+FROM (SELECT id,
+	   state as location,
+	   date,
+	   cases,
+	   deaths
+	   FROM dados_nyt
+	   ORDER BY state, id) as temp_data
+WHERE (date='2020-02-01' OR date='2020-03-01' OR date='2020-04-01' OR date='2020-05-01' OR date='2020-06-01' OR date='2020-07-01' OR date='2020-08-01' OR date='2020-09-01' OR date='2020-10-01' OR date='2020-11-01' OR date='2020-12-01' OR date='2021-01-01' OR date='2021-02-01' OR date='2021-03-01' OR date='2021-04-01' OR date='2021-05-01' OR date='2021-06-01' OR date='2021-07-01' OR date='2021-08-01');
+
+CREATE TABLE table_eua AS
+	SELECT id,
+	   location,
+	   date,
+	   total_cases,	
+	   total_cases - old_total_cases as new_cases,
+	   total_deaths,
+	   total_deaths - old_total_deaths as new_deaths
+FROM view_eua;
+~~~
+
+Após todo o tratamento e união dos dados da Europa e dos Estados Unidos e suas respectivas tabelas europa_final e eua_final foi possível unir todos os dados em uma tabela final que representaria o dataset completo. 
 
 ~~~
 # UNINDO AS TABELAS FINAIS DA EUROPA E DOS EUA - processo de construção do datset finalizado
@@ -171,12 +209,12 @@ Antes de realizar qualquer extração e tratamento dos das fontes escolhidas, o 
 > ![Modelo conceitual inicial](../parcial/images/Modelo%20conceitual.jpeg)
 
 
-Porém, ao longo do desenvolvimento do dataset surgiu a necessidade de integrarmos as quantidade populacional de cada país e/ou estado, permitindo, assim, uma análise da relação dos casos de infecção e mortes por Covid-19 à frequência da adoção do uso das máscaras em termos relativos e não apenas absolutos. Assim, foram adiconados os elementos populacao, new_cases_per_million_habitants, new_deaths_per_million_habitants, total_cases_per_million_habitants e total_deaths_per_million_habitants ao modelo conceitual.
+Porém, ao longo do desenvolvimento do dataset surgiu a necessidade de integrarmos as quantidade populacional de cada país e/ou estado, permitindo, assim, uma análise da relação dos casos de infecção e mortes por Covid-19 à frequência da adoção do uso das máscaras em termos relativos e não apenas absolutos. Assim, foram adicionados os elementos populacao, new_cases_per_million_habitants, new_deaths_per_million_habitants, total_cases_per_million_habitants e total_deaths_per_million_habitants ao modelo conceitual.
 
 > ![Modelo conceitual](assets/modelo-conceitual.png)
 
 Com o modelo conceitual em mãos e estabelecidos os dado relevantes para o nosso dataset, foi possível a construção de modelos lógicos. A princípio os modelos escolhidos foram o modelo relacional e o modelo em grafos, porém resolvemos trocar o modelo em grafos pelo modelo hierárquico.
-O modelo relacional, além de ser o modelo mais comum e acessível, foi escolhido por sua representação dos dados em forma de tabelas, que proporciona uma visualização múltipla dos dados e facilita o tratamento e consultas em grandes quantidades de dados. Já o modelo hierárquico foi escolhido no lugar do modelo em grafos por se encaixar na forma em que nossos dados estão estruturados e pela facilidade de se trabalhar, exportar e importar dados estruturados neste modelo. A construção desses modelos e do dataset em si envolvem a integração dos dados em formato csv (Comma Separated Value) e JSON de fontes distintas, o tratamento e a transformação destes dados a fim de padronizar a representação dos modelos.
+O modelo relacional, além de ser o modelo mais comum e acessível, foi escolhido por sua representação dos dados em forma de tabelas, que proporciona uma visualização múltipla dos dados e facilita o tratamento e consultas em grandes quantidades de dados. Já o modelo hierárquico foi escolhido no lugar do modelo em grafos por se encaixar na forma em que nossos dados estão estruturados e pela facilidade de se trabalhar, exportar e importar dados estruturados neste modelo. 
 
 A versão inicial do modelo lógico relacional tinha sido construído baseada na primeira versão do modelo conceitual.
 
@@ -193,7 +231,7 @@ CASOS(_id_, location, date, new_cases, total_cases, new_deaths, total_deaths, ma
 POPULACAO(location,  population)
 ~~~
 
-O modelo lógico hierárquico foi o último e ser feito, por isso foi feita já com a versão final do dataset e modelo conceitual. Porém, sua construção foi um processo desafiador. Foi necessário um script em python para reorganizar os arquivos CSV relacionais estrutuados em arquivos hierárquicos semi-estruturados JSON. O script para essa conversão é apresentado neste [Notebook](./notebooks/csvtojson.ipynb).
+O modelo lógico hierárquico foi o último e ser feito, por isso foi feita já com a versão final do dataset e modelo conceitual. Porém, sua construção foi um processo desafiador. Foi necessário um script em python para reorganizar os arquivos CSV relacionais estrutuados em arquivos hierárquicos semi-estruturados JSON. O script para essa conversão é apresentado neste [Notebook](./notebooks/csvtojson.ipynb). Nele fazemos a leitura do tabela final e varremos criando dois vetores, o primeiro contendo todas as localizações e o segundo contendo todas as datas as quais nos temos dados, com isso criamos um dicionário nos baseando no modelo hierárquico desenvolvido e varremos todas as linhas da tabela final populando nosso dicionário.
 
 ## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
 
